@@ -2,7 +2,6 @@ const Koa = require('koa');
 const cors = require('@koa/cors');
 const logger = require('koa-logger');
 const respond = require('koa-respond');
-const passport = require('koa-passport');
 const compress = require('koa-compress');
 const bodyParser = require('koa-bodyparser');
 const responseTime = require('koa-response-time');
@@ -23,7 +22,6 @@ app.use(respond());
 app.use(compress());
 app.use(bodyParser());
 
-// app.use(passport.initialize());
 app.use(responseTime({
     hrtime: false
 }));

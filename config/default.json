@@ -1,0 +1,7 @@
+{
+  "redis": {
+    "uri": "redis://127.0.0.1:6379"
+  },
+  "worker": 2,
+  "maxJobPerWorker": 50
+}

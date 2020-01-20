@@ -1,5 +1,7 @@
 let Queue = require('bull');
-let REDIS_URI = 'redis://localhost:6379';
+
+const config = require('../../config/default');
+const REDIS_URI = config.redis.uri;
 
 let workQueue = new Queue('work', REDIS_URI);
 
