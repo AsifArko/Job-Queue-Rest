@@ -16,4 +16,4 @@ async function seed() {
     await workQueue.add(data)
 }
 
-setInterval(seed, 3000);
+setInterval(seed, 300);
