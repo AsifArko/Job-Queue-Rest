@@ -1,0 +1,30 @@
+{
+  "name": "robocop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "(cd worker && node worker.js) & node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "bull": "^3.12.1",
+    "express": "^4.17.1",
+    "foreman": "^3.0.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-joi-router": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "koa-passport": "^4.1.3",
+    "koa-respond": "^2.1.0",
+    "koa-response-time": "^2.1.0",
+    "redis": "^2.8.0",
+    "throng": "^4.0.0",
+    "winston": "^3.2.1"
+  }
+}
