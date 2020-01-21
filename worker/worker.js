@@ -13,24 +13,24 @@ function sleep(ms) {
 };
 
 function start() {
-    let workQueue = new Queue('work', REDIS_URI);
+    let workQueue = new Queue('job', REDIS_URI);
 
     let promise = workQueue.process(MaxJobPerWorker, async (job) => {
         logger.debug(`Job ${job.id} is in process`);
         let progress = 0;
-        if (Math.random() < 0.35) {
+        if (Math.random() < 0.50) {
             throw new Error(`Job : ${job.id} Failed`)
         }
 
         while (progress < 100) {
             await sleep(50);
             progress += 1;
-            if (progress === 100) {
-                logger.debug(`Job ${job.id} completed`);
-            }
             await job.progress(progress)
         }
-        return {message: `Job ${job.id} will be stored`}
+
+        return {
+            job: JSON.stringify(job)
+        }
     });
 }
 

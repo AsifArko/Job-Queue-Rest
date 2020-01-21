@@ -1,9 +1,11 @@
 let Queue = require('bull');
 
+const {logger} = require('../../utils/logger');
+
 const config = require('../../config/default');
 const REDIS_URI = config.redis.uri;
 
-let workQueue = new Queue('work', REDIS_URI);
+let workQueue = new Queue('job', REDIS_URI);
 
 exports.jobs = async (ctx) => {
     try {
@@ -45,3 +47,16 @@ exports.getJob = async (ctx) => {
         })
     }
 };
+
+workQueue.on('global:completed', (jobId, result) => {
+    logger.debug(`Job ${jobId} completed with result ${result}`);
+});
+
+workQueue.on('global:failed', async (jobId, result) => {
+    logger.debug(`Job ${jobId} failed ${result}`);
+
+    logger.debug(`Initiating Retry for Job ${jobId}`);
+    let job = await workQueue.getJobFromId(jobId);
+    await job.retry();
+    logger.debug(`Initiated Retry for Job ${jobId}`);
+});

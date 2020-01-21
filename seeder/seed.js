@@ -3,7 +3,7 @@ let Queue = require('bull');
 const config = require('../config/default');
 const REDIS_URI = config.redis.uri;
 
-let workQueue = new Queue('work', REDIS_URI);
+let workQueue = new Queue('job', REDIS_URI);
 
 async function seed() {
     let data = {
@@ -16,4 +16,4 @@ async function seed() {
     await workQueue.add(data)
 }
 
-setInterval(seed, 300);
+setInterval(seed, 1000);
