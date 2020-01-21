@@ -60,3 +60,7 @@ workQueue.on('global:failed', async (jobId, result) => {
     await job.retry();
     logger.debug(`Initiated Retry for Job ${jobId}`);
 });
+
+workQueue.on('global:waiting', async (jobId, result) => {
+    logger.debug(`Job ${jobId} is in waiting`);
+});
