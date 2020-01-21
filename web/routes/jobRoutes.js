@@ -30,4 +30,10 @@ jobRouter.route({
     handler: [jobController.getJob]
 });
 
+jobRouter.route({
+    method: 'get',
+    path: '/statistics',
+    handler: [jobController.statistics]
+});
+
 module.exports = jobRouter;

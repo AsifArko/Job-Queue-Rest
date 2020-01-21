@@ -48,19 +48,45 @@ exports.getJob = async (ctx) => {
     }
 };
 
+exports.statistics = async (ctx) => {
+    try {
+        let statistics = await workQueue.getJobCounts();
+        ctx.ok({
+            data: statistics
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
 workQueue.on('global:completed', (jobId, result) => {
-    logger.debug(`Job ${jobId} completed with result ${result}`);
+    logger.debug(`Job ${jobId} completed with ${result}`);
 });
 
 workQueue.on('global:failed', async (jobId, result) => {
     logger.debug(`Job ${jobId} failed ${result}`);
-
     logger.debug(`Initiating Retry for Job ${jobId}`);
     let job = await workQueue.getJobFromId(jobId);
-    await job.retry();
+    setTimeout(async () => {
+        await job.retry()
+    }, 5000);
     logger.debug(`Initiated Retry for Job ${jobId}`);
 });
 
 workQueue.on('global:waiting', async (jobId, result) => {
     logger.debug(`Job ${jobId} is in waiting`);
+});
+
+workQueue.on('global:delayed', async (jobId, result) => {
+    logger.debug(`Job ${jobId} is delayed`);
+});
+
+workQueue.on('global:active', async (jobId, result) => {
+    logger.debug(`Job ${jobId} is in process`);
+});
+
+workQueue.on('global:stalled', async (jobId, result) => {
+    logger.debug(`Job ${jobId} is stalled`);
 });

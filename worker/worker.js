@@ -16,7 +16,6 @@ function start() {
     let workQueue = new Queue('job', REDIS_URI);
 
     let promise = workQueue.process(MaxJobPerWorker, async (job) => {
-        logger.debug(`Job ${job.id} is in process`);
         let progress = 0;
         if (Math.random() < 0.50) {
             throw new Error(`Job : ${job.id} Failed`)
