@@ -36,4 +36,22 @@ jobRouter.route({
     handler: [jobController.statistics]
 });
 
+jobRouter.route({
+    method: 'get',
+    path: '/failed',
+    handler: [jobController.getFailedList]
+});
+
+jobRouter.route({
+    method: 'get',
+    path: '/delayed',
+    handler: [jobController.getDelayedList]
+});
+
+jobRouter.route({
+    method: 'get',
+    path: '/waiting',
+    handler: [jobController.getWaitingList]
+});
+
 module.exports = jobRouter;

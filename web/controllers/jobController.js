@@ -1,4 +1,5 @@
 let Queue = require('bull');
+let when = require('when');
 
 const {logger} = require('../../utils/logger');
 
@@ -61,6 +62,45 @@ exports.statistics = async (ctx) => {
     }
 };
 
+exports.getFailedList = async (ctx) => {
+    try {
+        let data = await workQueue.getFailed();
+        ctx.ok({
+            data: data
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
+exports.getDelayedList = async (ctx) => {
+    try {
+        let data = await workQueue.getDelayed();
+        ctx.ok({
+            data: data
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
+exports.getWaitingList = async (ctx) => {
+    try {
+        let data = await workQueue.getWaiting();
+        ctx.ok({
+            data: data
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
 workQueue.on('global:completed', (jobId, result) => {
     logger.debug(`Job ${jobId} completed with ${result}`);
 });
@@ -71,7 +111,7 @@ workQueue.on('global:failed', async (jobId, result) => {
     let job = await workQueue.getJobFromId(jobId);
     setTimeout(async () => {
         await job.retry()
-    }, 5000);
+    }, 10000);
     logger.debug(`Initiated Retry for Job ${jobId}`);
 });
 

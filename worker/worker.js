@@ -24,13 +24,13 @@ function start() {
         while (progress < 100) {
             await sleep(50);
             progress += 1;
-            await job.progress(progress)
+            await job.progress(progress);
         }
 
         return {
             job: JSON.stringify(job)
         }
     });
-}
+};
 
 throng({Workers, start});
