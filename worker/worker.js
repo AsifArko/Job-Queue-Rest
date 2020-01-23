@@ -2,7 +2,6 @@ const throng = require('throng');
 const Queue = require('bull');
 
 const config = require('../config/default');
-const {logger} = require('../utils/logger');
 
 const REDIS_URI = config.redis.uri;
 const Workers = config.worker;
@@ -17,7 +16,7 @@ function start() {
 
     let promise = workQueue.process(MaxJobPerWorker, async (job) => {
         let progress = 0;
-        if (Math.random() < 0.50) {
+        if (Math.random() < 0.78) {
             throw new Error(`Job : ${job.id} Failed`)
         }
 

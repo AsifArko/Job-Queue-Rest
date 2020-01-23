@@ -1,5 +1,4 @@
 let Queue = require('bull');
-let when = require('when');
 
 const {logger} = require('../../utils/logger');
 
@@ -10,7 +9,7 @@ let workQueue = new Queue('job', REDIS_URI);
 
 exports.jobs = async (ctx) => {
     try {
-        let jobs = await workQueue.getCompleted();
+        let jobs = await workQueue.getJobs("completed", 0, 10, true);
         ctx.ok({
             data: jobs
         })
@@ -64,7 +63,7 @@ exports.statistics = async (ctx) => {
 
 exports.getFailedList = async (ctx) => {
     try {
-        let data = await workQueue.getFailed();
+        let data = await workQueue.getJobs("failed", 0, 10, true);
         ctx.ok({
             data: data
         })
@@ -77,7 +76,7 @@ exports.getFailedList = async (ctx) => {
 
 exports.getDelayedList = async (ctx) => {
     try {
-        let data = await workQueue.getDelayed();
+        let data = await workQueue.getJobs("delayed", 0, 10, true);
         ctx.ok({
             data: data
         })
@@ -90,7 +89,7 @@ exports.getDelayedList = async (ctx) => {
 
 exports.getWaitingList = async (ctx) => {
     try {
-        let data = await workQueue.getWaiting();
+        let data = await workQueue.getJobs("waiting", 0, 10, true);
         ctx.ok({
             data: data
         })
