@@ -54,4 +54,10 @@ jobRouter.route({
     handler: [jobController.getWaitingList]
 });
 
+jobRouter.route({
+    method: 'get',
+    path: '/active',
+    handler: [jobController.getActiveList]
+});
+
 module.exports = jobRouter;

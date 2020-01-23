@@ -100,6 +100,19 @@ exports.getWaitingList = async (ctx) => {
     }
 };
 
+exports.getActiveList = async (ctx) => {
+    try {
+        let data = await workQueue.getJobs("active", 0, 10, true);
+        ctx.ok({
+            data: data
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
 workQueue.on('global:completed', (jobId, result) => {
     logger.debug(`Job ${jobId} completed with ${result}`);
 });
