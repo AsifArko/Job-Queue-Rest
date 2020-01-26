@@ -1,6 +1,7 @@
 let Queue = require('bull');
 
 const {logger} = require('../../utils/logger');
+const {paginationMeta} = require('../../utils/pagination');
 
 const config = require('../../config/default');
 const REDIS_URI = config.redis.uri;
@@ -8,10 +9,15 @@ const REDIS_URI = config.redis.uri;
 let workQueue = new Queue('job', REDIS_URI);
 
 exports.jobs = async (ctx) => {
+    let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let jobs = await workQueue.getJobs("completed", 0, 10, true);
+        let jobs = await workQueue.getJobs("completed", skip, limit, true);
         ctx.ok({
-            data: jobs
+            data: jobs,
+            meta: {
+                skip: skip,
+                limit: limit
+            }
         })
     } catch (e) {
         ctx.badRequest({
@@ -62,10 +68,15 @@ exports.statistics = async (ctx) => {
 };
 
 exports.getFailedList = async (ctx) => {
+    let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let data = await workQueue.getJobs("failed", 0, 10, true);
+        let data = await workQueue.getJobs("failed", skip, limit, true);
         ctx.ok({
-            data: data
+            data: data,
+            meta: {
+                skip: skip,
+                limit: limit
+            }
         })
     } catch (e) {
         ctx.badRequest({
@@ -75,10 +86,15 @@ exports.getFailedList = async (ctx) => {
 };
 
 exports.getDelayedList = async (ctx) => {
+    let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let data = await workQueue.getJobs("delayed", 0, 10, true);
+        let data = await workQueue.getJobs("delayed", skip, limit, true);
         ctx.ok({
-            data: data
+            data: data,
+            meta: {
+                skip: skip,
+                limit: limit
+            }
         })
     } catch (e) {
         ctx.badRequest({
@@ -88,10 +104,15 @@ exports.getDelayedList = async (ctx) => {
 };
 
 exports.getWaitingList = async (ctx) => {
+    let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let data = await workQueue.getJobs("waiting", 0, 10, true);
+        let data = await workQueue.getJobs("waiting", skip, limit, true);
         ctx.ok({
-            data: data
+            data: data,
+            meta: {
+                skip: skip,
+                limit: limit
+            }
         })
     } catch (e) {
         ctx.badRequest({
@@ -101,10 +122,15 @@ exports.getWaitingList = async (ctx) => {
 };
 
 exports.getActiveList = async (ctx) => {
+    let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let data = await workQueue.getJobs("active", 0, 10, true);
+        let data = await workQueue.getJobs("active", skip, limit, true);
         ctx.ok({
-            data: data
+            data: data,
+            meta: {
+                skip: skip,
+                limit: limit
+            }
         })
     } catch (e) {
         ctx.badRequest({
