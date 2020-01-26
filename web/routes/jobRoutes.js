@@ -8,7 +8,7 @@ const jobRouter = joiRouter();
 
 jobRouter.route({
     method: 'get',
-    path: '/jobs',
+    path: '/completed',
     handler: [jobController.jobs]
 });
 

@@ -16,7 +16,7 @@ function start() {
 
     let promise = workQueue.process(MaxJobPerWorker, async (job) => {
         let progress = 0;
-        if (Math.random() < 0.78) {
+        if (Math.random() < 0.90) {
             throw new Error(`Job : ${job.id} Failed`)
         }
 
