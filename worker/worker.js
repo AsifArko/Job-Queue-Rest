@@ -3,15 +3,11 @@ const Queue = require('bull');
 
 const config = require('../config/default');
 const genericWorkerService = require('./service/service');
-const {logger} = require('../utils/logger');
 
 const REDIS_URI = config.redis.uri;
 const Workers = config.worker;
 const MaxJobPerWorker = config.maxJobPerWorker;
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-};
 let workQueue = new Queue('job', REDIS_URI);
 
 function start() {
