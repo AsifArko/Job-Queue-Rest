@@ -35,6 +35,6 @@ async function seedWithPriority() {
     await workQueue.add("PRIORITIZED", data, {priority: 1})
 }
 
-setInterval(seed, 100);
-setInterval(seedWithDelay, 100);
-setInterval(seedWithPriority, 100);
+setInterval(seed, 1000);
+// setInterval(seedWithDelay, 100);
+// setInterval(seedWithPriority, 100);

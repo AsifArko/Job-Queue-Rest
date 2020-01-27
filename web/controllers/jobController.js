@@ -1,8 +1,7 @@
 let Queue = require('bull');
 
-const {logger} = require('../../utils/logger');
 const {paginationMeta} = require('../../utils/pagination');
-
+const {logger} = require('../../utils/logger');
 const config = require('../../config/default');
 const REDIS_URI = config.redis.uri;
 
@@ -140,7 +139,7 @@ exports.getActiveList = async (ctx) => {
 };
 
 workQueue.on('global:completed', (jobId, result) => {
-    logger.debug(`Job ${jobId} completed with ${result}`);
+    logger.debug(`Job ${jobId} completed with result ${result}`);
 });
 
 workQueue.on('global:failed', async (jobId, result) => {
@@ -162,7 +161,7 @@ workQueue.on('global:delayed', async (jobId, result) => {
 });
 
 workQueue.on('global:active', async (jobId, result) => {
-    logger.debug(`Job ${jobId} is in process`);
+    logger.debug(`Job ${jobId} is in process with result ${result}`);
 });
 
 workQueue.on('global:stalled', async (jobId, result) => {
