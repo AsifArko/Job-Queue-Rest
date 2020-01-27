@@ -36,5 +36,5 @@ async function seedWithPriority() {
 }
 
 setInterval(seed, 1000);
-// setInterval(seedWithDelay, 100);
-// setInterval(seedWithPriority, 100);
+setInterval(seedWithDelay, 100);
+setInterval(seedWithPriority, 100);
