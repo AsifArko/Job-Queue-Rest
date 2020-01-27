@@ -60,4 +60,10 @@ jobRouter.route({
     handler: [jobController.getActiveList]
 });
 
+jobRouter.route({
+    method: 'post',
+    path: '/retry/:id',
+    handler: [jobController.retryJob]
+});
+
 module.exports = jobRouter;

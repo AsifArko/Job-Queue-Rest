@@ -138,6 +138,21 @@ exports.getActiveList = async (ctx) => {
     }
 };
 
+exports.retryJob = async (ctx) => {
+    const {id} = ctx.request.params;
+    try {
+        let job = await workQueue.getJobFromId(id);
+        await job.retry();
+        ctx.ok({
+            data: `Job ${id} is pushed in the queue`
+        })
+    } catch (e) {
+        ctx.badRequest({
+            error: JSON.stringify(e)
+        })
+    }
+};
+
 workQueue.on('global:completed', (jobId, result) => {
     logger.debug(`Job ${jobId} completed with result ${result}`);
 });
