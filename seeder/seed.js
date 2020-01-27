@@ -12,7 +12,7 @@ async function seed() {
         message: Math.random().toString(36).substring(7),
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
-    await workQueue.add(data)
+    await workQueue.add("GENERIC", data)
 }
 
 async function seedWithDelay() {
@@ -22,7 +22,7 @@ async function seedWithDelay() {
         message: Math.random().toString(36).substring(7),
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
-    await workQueue.add(data, {delay: Math.floor(Math.random()*10000)})
+    await workQueue.add("DELAYED", data, {delay: 5000})
 }
 
 async function seedWithPriority() {
@@ -32,9 +32,9 @@ async function seedWithPriority() {
         message: "Priority test",
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
-    await workQueue.add(data, {priority: 1})
+    await workQueue.add("PRIORITIZED", data, {priority: 1})
 }
 
-setInterval(seed, Math.floor(Math.random()*10000));
-setInterval(seedWithDelay, Math.floor(Math.random()*10000));
-// setInterval(seedWithPriority, Math.floor(Math.random()*10000));
+setInterval(seed, 100);
+setInterval(seedWithDelay, 100);
+setInterval(seedWithPriority, 100);
