@@ -5,6 +5,7 @@ const respond = require('koa-respond');
 const compress = require('koa-compress');
 const bodyParser = require('koa-bodyparser');
 const responseTime = require('koa-response-time');
+const {initializeMongoDB} = require('./entities/infra/mongo/client');
 
 const routes = require('./web/routes');
 
@@ -25,6 +26,8 @@ app.use(bodyParser());
 app.use(responseTime({
     hrtime: false
 }));
+
+initializeMongoDB();
 
 routes(app);
 

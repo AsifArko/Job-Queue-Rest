@@ -24,6 +24,7 @@
     "koa-passport": "^4.1.3",
     "koa-respond": "^2.1.0",
     "koa-response-time": "^2.1.0",
+    "mongoose": "^5.8.10",
     "redis": "^2.8.0",
     "throng": "^4.0.0",
     "winston": "^3.2.1"

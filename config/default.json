@@ -1,4 +1,8 @@
 {
+  "mongo": {
+    "uri": "mongodb+srv://asif:arkookra123@cluster0-weuuf.mongodb.net/test?retryWrites=true&w=majority",
+    "debug": true
+  },
   "redis": {
     "uri": "redis://127.0.0.1:6379"
   },

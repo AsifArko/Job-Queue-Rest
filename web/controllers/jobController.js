@@ -10,7 +10,7 @@ let workQueue = new Queue('job', REDIS_URI);
 exports.jobs = async (ctx) => {
     let {skip, limit} = paginationMeta(ctx.query);
     try {
-        let jobs = await workQueue.getJobs("completed", skip, limit, true);
+        let jobs = await workQueue.getJobs("completed", skip, limit, false);
         ctx.ok({
             data: jobs,
             meta: {
