@@ -8,7 +8,7 @@ let workQueue = new Queue('job', REDIS_URI);
 async function seed() {
     let data = {
         name: "SEND_EMAIL",
-        email: "asif@kickbackapps.com",
+        email: "xxx",
         message: Math.random().toString(36).substring(7),
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
@@ -18,7 +18,7 @@ async function seed() {
 async function seedWithDelay() {
     let data = {
         name: "SEND_EMAIL",
-        email: "asif@kickbackapps.com",
+        email: "xxx",
         message: Math.random().toString(36).substring(7),
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
@@ -28,7 +28,7 @@ async function seedWithDelay() {
 async function seedWithPriority() {
     let data = {
         name: "SEND_EMAIL",
-        email: "asif@kickbackapps.com",
+        email: "xxx",
         message: "Priority test",
     };
     console.log(`Pushing Job ${JSON.stringify(data)}`);
